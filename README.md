@@ -118,14 +118,15 @@
 - GSM8K：高质量小学数学应用题评测基准，需要2到8个步骤来解决，解决方案主要涉及基本算术运算，可用于评价多步数学推理能力。
 <div align="center">
   
-| 模型名称                    | MMLU  | HellaSwag | ARC-e  | BBH   | C-Eval | CMMLU  |
-| :-----------------------------: | :-------: |:-----------:|:--------:|:-------:|:--------:|:--------:|
-| Granite-3B-Code-Instruct     | 29.95 | 26.82     | 47.62  | 35.87 | 32.30  | 30.77  |
-| Stable-Code-Instruct-3B      | 29.34 | 32.15     | 34.74  | 21.69 | 28.61  | 29.18  |
-| Yi-Coder-1.5B-Chat           | 33.98 | 28.52     | 40.04  | 34.40 | 31.88  | 31.88  |
-| DeepSeek-Coder-1.3B-Instruct | 26.68 | 25.25     | 27.69  | 7.48  | 25.61  | 26.88  |
-| 珠算                         | **40.18** | **53.23**     | **66.67**  | **36.08** | **36.00**  | **36.84**  |
-  
+
+| 模型名称                       | MMLU  | HellaSwag | ARC-e | BBH   | C-Eval | CMLU  | GSM8K | AVG   |
+|:-------------------------------:|:-------:|:-----------:|:---------:|:--------:|:---------:|:--------:|:--------:|:--------:|
+| Granite-3B-Code-Instruct       | 29.95 | 26.82     | 47.62 | 35.87 | 32.30  | 30.77 | **56.48** | 37.12 |
+| Stable-Code-Instruct-3B        | 29.34 | 32.15     | 34.74 | 21.69 | 28.61  | 29.18 | 15.92 | 27.37 |
+| Yi-Coder-1.5B-Chat             | 33.98 | 28.52     | 40.04 | 34.40 | 31.88  | 31.88 | 10.16 | 30.12 |
+| DeepSeek-Coder-1.3B-Instruct   | 26.68 | 25.25     | 27.69 | 7.48  | 25.61  | 26.88 | 9.63  | 21.32 |
+| 珠算                          | **40.18** | **53.23**     | **66.67** | **36.08** | **36.00**  | **36.84** | 46.32 | **45.05** |
+
 </div>
   
 ## 4.模型使用
@@ -208,65 +209,67 @@ stream_output = model.generate(
 #### ModelScope 模型推理
 <details>
   
-  ModelScope的接口与Transformers非常相似，只需将transformers替换为modelscope即可：
-  ```python
-  # example/modelscope-generate/generate.py
-  
-  import torch
-  - from transformers import AutoModelForCausalLM, AutoTokenizer
-  + from modelscope import AutoTokenizer, AutoModelForCausalLM
-  
-  model_id = "HIT-SCIR/abacus"
-  
-  tokenizer = AutoTokenizer.from_pretrained(model_id)
-  model = AutoModelForCausalLM.from_pretrained(
-      model_id,
-      torch_dtype=torch.bfloat16,
-      device_map="auto",
-      trust_remote_code=True,
-  )
-  
-  text = "<用户>请你用python写一段快速排序的代码<AI>"
-  
-  inputs = tokenizer(text, return_tensors="pt").to(0)
-  outputs = model.generate(
-      **inputs,
-      temperature=0.8,
-      top_p=0.9,
-      max_new_tokens=2048,
-  )
-  print(tokenizer.decode(outputs[0], skip_special_tokens=False))
-  ```
+ModelScope的接口与Transformers非常相似，只需将transformers替换为modelscope即可：
+```python
+# example/modelscope-generate/generate.py
+
+import torch
+from modelscope import AutoTokenizer, AutoModelForCausalLM
+
+model_id = "HIT-SCIR/abacus"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+    trust_remote_code=True,
+)
+
+text = "<用户>请你用python写一段快速排序的代码<AI>"
+
+inputs = tokenizer(text, return_tensors="pt").to(0)
+outputs = model.generate(
+    **inputs,
+    temperature=0.8,
+    top_p=0.9,
+    max_new_tokens=2048,
+)
+print(tokenizer.decode(outputs[0], skip_special_tokens=False))
+```
 
 </details>
 
 #### vLLM 推理加速
+
 <details>
-  珠算支持通过vLLM实现推理加速，示例代码如下：
-  ```python
-  # example/vllm-generate/generate.py
   
-  from vllm import LLM, SamplingParams
-  
-  llm = LLM(
-      model="HIT-SCIR/abacus",
-      tensor_parallel_size=1,
-      trust_remote_code=True,
-  )
-  
-  sampling_params = SamplingParams(
-      temperature=0.8, top_p=0.95, max_tokens=2048
-  )
-  
-  prompts = [
-      "<用户>请你用python写一段快速排序的代码<AI>",
-  ]
-  
-  outputs = llm.generate(prompts, sampling_params)
-  
-  for output in outputs:
-      prompt = output.prompt
-      generated_text = output.outputs[0].text
-      print(generated_text)
-  ```
+珠算支持通过vLLM实现推理加速，示例代码如下：
+```python
+# example/vllm-generate/generate.py
+
+from vllm import LLM, SamplingParams
+
+llm = LLM(
+    model="HIT-SCIR/abacus",
+    tensor_parallel_size=1,
+    trust_remote_code=True,
+)
+
+sampling_params = SamplingParams(
+    temperature=0.8, top_p=0.95, max_tokens=2048
+)
+
+prompts = [
+    "<用户>请你用python写一段快速排序的代码<AI>",
+]
+
+outputs = llm.generate(prompts, sampling_params)
+
+for output in outputs:
+    prompt = output.prompt
+    generated_text = output.outputs[0].text
+    print(generated_text)
+```
+
 </details>
