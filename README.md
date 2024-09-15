@@ -7,8 +7,14 @@
 </div>
 <hr>
 <div align="center" style="line-height: 1;">
-  <a href="https://www.deepseek.com/" target="_blank" style="margin: 2px;">
+  <a href="" target="_blank" style="margin: 2px;">
     <img alt="Homepage" src="https://img.shields.io/badge/Abacus-Homepage-blue?style=flat-square&logo=homeadvisor" style="display: inline-block; vertical-align: middle;"/>
+  </a>
+  <a href="" target="_blank" style="margin: 2px;">
+    <img alt="Blog" src="https://img.shields.io/badge/Abacus-Homepage-blue?style=flat-square&logo=homeadvisor" style="display: inline-block; vertical-align: middle;"/>
+  </a>
+  <a href="" target="_blank" style="margin: 2px;">
+    <img alt="Wechat" src="https://img.shields.io/badge/Abucus-Wechat-green?style=flat-square&logo=homeadvisor" style="display: inline-block; vertical-align: middle;"/>
   </a>
 </div>
 
