@@ -20,10 +20,10 @@
 
 ---
 
-- [模型介绍](#1.模型介绍)
-- [模型下载](#2.模型下载)
-- [模型评价](#3.模型评价)
-- [模型使用](#4.模型使用)
+- [模型介绍](#1模型介绍)
+- [模型下载](#2模型下载)
+- [模型评价](#3模型评价)
+- [模型使用](#4模型使用)
 
 
 ## 1.模型介绍
@@ -158,6 +158,9 @@ outputs = model.generate(
 print(tokenizer.decode(outputs[0], skip_special_tokens=False))
 ```
 #### Transformers 模型推理 + 流式生成
+
+<details>
+
 transformers支持为tokenizer添加聊天模板，并支持流式生成。示例代码如下：
 ```python
 # example/transformers-stream/stream.py
@@ -194,10 +197,11 @@ stream_output = model.generate(
     max_new_tokens=2048,
 )
 ```
-
+</details>
 
 #### ModelScope 模型推理
 <details>
+  
   ModelScope的接口与Transformers非常相似，只需将transformers替换为modelscope即可：
   ```python
   # example/modelscope-generate/generate.py
@@ -227,6 +231,7 @@ stream_output = model.generate(
   )
   print(tokenizer.decode(outputs[0], skip_special_tokens=False))
   ```
+
 </details>
 
 #### vLLM 推理加速
