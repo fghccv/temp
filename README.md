@@ -107,6 +107,7 @@
 | DeepSeek-Coder-1.3B-Instruct      | 65.24     | 59.15      | 56.03           | 45.36 | 7.00           | 46.56 |
 | 珠算                              | **71.95**    | **65.85**      | 57.98           | 43.36 | 9.06           | **49.64** |
 </div>
+
 **在国内外3B以下代码大模型中，珠算大模型在五个主流代码评测基准上的综合表现达到最佳**，各项指标均处于领先水平。其中，在Humaneval和Humaneval+基准上的表现尤为突出；在MBPP(sanitized)和MBPP+基准上的表现略逊于最新发布的Yi-Coder-1.5B-chat；而在LiveCodeBench基准上的表现仅次于Stable-Code-Instruct-3B。
 
 #### 3.2 通用语言能力
