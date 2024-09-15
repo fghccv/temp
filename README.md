@@ -317,11 +317,11 @@ for output in outputs:
 ## 8.珠算大模型
 ```latex
 @misc{huozi,
-    author = {Huozi-Team}.
-    title = {Huozi: Leveraging Large Language Models for Enhanced Open-Domain Chatting}
+    author = {Abacus-Team}.
+    title = {xxx}
     year = {2024},
     publisher = {GitHub},
     journal = {GitHub repository}
-    howpublished = {\url{https://github.com/HIT-SCIR/huozi}}
+    howpublished = {\url{https://github.com/HIT-SCIR/Abacus}}
 }
 ```
