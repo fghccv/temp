@@ -17,24 +17,36 @@
     <img alt="Code License" src="https://img.shields.io/badge/Code_License-MIT-f5de53?&color=f5de53" style="display: inline-block; vertical-align: middle;"/>
   </a>
 </div>
+
+---
+
+- [模型介绍](#1.模型介绍)
+- [模型下载](#2. 模型下载)
+- [3. 模型评价结果](#3. 模型评价结果)
+- [Cookbook](#cookbook)
+- [Results](#results)
+- [License](#license)
+
+## 1.模型介绍
+### 1.1 引言
+​	目前开源代码大模型提升编程能力的同时会严重损害通用语言能力。为此，哈工大赛尔实验室推出了“珠算”代码大模型，以2.7B参数在代码与通用语言平均性能上均超越了3B及以下代码大模型，希望通过开放权重、训练细节以及配套的微调适配平台与插件，助力开源社区发展。
 <p align="center">
-  <a href="#1-model-downloads">模型下载</a> |
-  <a href="#2-evaluation-results">Evaluation Results</a> |
-  <a href="#3-how-to-run-locally">How to Use</a> |
-  <a href="#4-license">License</a> |
-  <a href="#5-citation">Citation</a>
+  <img width="100%" src="picture/performance.png">
 </p>
+### 1.2 面向代码的继续预训练与微调
 
-## 1. Model Downloads
 
-We release the DeepSeek-Coder-V2 with 16B and 236B parameters based on the [DeepSeekMoE](https://arxiv.org/pdf/2401.06066) framework, which has actived parameters of only 2.4B and 21B , including base and instruct models, to the public. 
+## 2. 模型下载
+
 
 <div align="center">
 
 |模型名称|文件大小|下载地址|备注|
 |:---:|:---:|:---:|:---:|
-|Abacus|5GB|[🤗HuggingFace](https://huggingface.co/HIT-SCIR/huozi3)<br>[ModelScope](https://modelscope.cn/models/HIT-SCIR/huozi3/summary)|活字3.0 完整模型|
-
-
+|Abacus|5GB|[🤗HuggingFace](https://huggingface.co/HIT-SCIR/huozi3)<br>[ModelScope](https://modelscope.cn/models/HIT-SCIR/huozi3/summary)|Abacus完整模型|
 
 </div>
+
+## 3. 模型评价结果
+
+## 4. 模型推理
