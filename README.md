@@ -288,14 +288,19 @@ for output in outputs:
 <p align="center">
   <img width="100%" src="./picture/4-3.png">
 </p>
+
+#### 模型推理功能
 <p align="center">
   <img width="100%" src="./picture/4-4.png">
 </p>
 
-#### 模型推理功能
-<p align="center">
-  <img width="100%" src="./picture/4-5.png">
-</p>
-
 ## 6.VSCode插件
 基于珠算大模型的编程能力，我们面向VSCode平台构建了编程辅助插件。插件可以一键式安装，支持代码生成、代码补全、代码摘要等功能，根据用户已经输入的内容预测后续的代码或注释，有效提高开发效率。
+<p align="center">
+  <img width="100%" src="./picture/4-5.gif">
+</p>
+由于珠算大模型具有良好的中文理解能力，用户可以直接用中文写注释来表达需求。
+<p align="center">
+  <img width="100%" src="./picture/4-6.gif">
+</p>
+我们的插件将于测试完毕后在VSCode应用市场发布。
