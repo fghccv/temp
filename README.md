@@ -11,10 +11,10 @@
     <img alt="Homepage" src="https://img.shields.io/badge/Abacus-Homepage-blue?style=flat-square&logo=homeadvisor" style="display: inline-block; vertical-align: middle;"/>
   </a>
   <a href="" target="_blank" style="margin: 2px;">
-    <img alt="Blog" src="https://img.shields.io/badge/Abucus-blog-red?style=flat-square&logo=blogger" style="display: inline-block; vertical-align: middle;"/>
+    <img alt="Blog" src="https://img.shields.io/badge/Abacus-blog-red?style=flat-square&logo=blogger" style="display: inline-block; vertical-align: middle;"/>
   </a>
   <a href="" target="_blank" style="margin: 2px;">
-    <img alt="Wechat" src="https://img.shields.io/badge/Abucus-Wechat-green?style=flat-square&logo=wechat" style="display: inline-block; vertical-align: middle;"/>
+    <img alt="Wechat" src="https://img.shields.io/badge/Abacus-Wechat-green?style=flat-square&logo=wechat" style="display: inline-block; vertical-align: middle;"/>
   </a>
 </div>
 
