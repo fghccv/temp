@@ -30,7 +30,8 @@
 - [模型下载](#2模型下载)
 - [模型评价](#3模型评价)
 - [模型使用](#4模型使用)
-
+- [模型使用](#5模型演示)
+- [模型使用](#6VSCode插件)
 
 ## 1.模型介绍
 ### 1.1 引言
@@ -273,3 +274,28 @@ for output in outputs:
 ```
 
 </details>
+
+## 5.模型演示
+#### 模型微调功能
+<p align="center">
+  <img width="100%" src="./picture/4-1.png">
+</p>
+<p align="center">
+  <img width="100%" src="./picture/4-2.png">
+</p>
+
+#### 模型评估功能
+<p align="center">
+  <img width="100%" src="./picture/4-3.png">
+</p>
+<p align="center">
+  <img width="100%" src="./picture/4-4.png">
+</p>
+
+#### 模型推理功能
+<p align="center">
+  <img width="100%" src="./picture/4-5.png">
+</p>
+
+## 6.VSCode插件
+基于珠算大模型的编程能力，我们面向VSCode平台构建了编程辅助插件。插件可以一键式安装，支持代码生成、代码补全、代码摘要等功能，根据用户已经输入的内容预测后续的代码或注释，有效提高开发效率。
