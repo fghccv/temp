@@ -3,5 +3,5 @@
 <!-- markdownlint-disable no-duplicate-header -->
 
 <div align="center">
-  <img src="picture/1.png" width="60%" alt="DeepSeek-V2" />
+  <img src="picture/1.PNG" width="60%" alt="Abacus" />
 </div>
