@@ -23,6 +23,7 @@
 - [模型介绍](#1.模型介绍)
 - [模型下载](#2.模型下载)
 - [模型评价](#3.模型评价)
+- [模型使用](#4.模型使用)
 
 
 ## 1.模型介绍
@@ -88,16 +89,16 @@
 - MBPP(sanitized)[17]：Python编程任务评测基准，经过人工验证后的MBPP子集，删减修改了原始MBPP中描述模糊、错误、不符合正常习惯的问题。
 - MBPP+[16]：精简了原始MBPP中的问题数量，并将单元测试的规模增加35倍，用于严格评估 LLM 生成代码的功能正确性。
 - LiveCodeBench[18]：旨在为 LLM 提供全面、公平的竞赛编程评估。 通过持续收集LeetCode、AtCoder和CodeForces竞赛平台的新问题，形成了动态的综合基准库。 为了确保数据不受污染，我们选择了 2024 年 1 月至 9 月的问题进行测试。
-
+<div align="center">
 
 | 模型名称                         | HumanEval | HumanEval+ | MBPP(sanitized) | MBPP+ | LiveCodeBench | AVG   |
-|----------------------------------|-----------|------------|-----------------|-------|----------------|-------|
+|:----------------------------------:|:-----------:|:------------:|:-----------------:|:-------:|:----------------:|:-------|
 | Granite-3B-Code-Instruct          | 45.73     | 39.63      | 53.70           | 41.10 | 7.46           | 37.52 |
 | Stable-Code-Instruct-3B           | 67.07     | 56.71      | 57.20           | 37.59 | **11.43**          | 46.00 |
 | Yi-Coder-1.5B-Chat                | 67.68     | 60.37      | **61.87**          | **48.37** | 8.22           | 49.30 |
 | DeepSeek-Coder-1.3B-Instruct      | 65.24     | 59.15      | 56.03           | 45.36 | 7.00           | 46.56 |
 | 珠算                              | **71.95**    | **65.85**      | 57.98           | 43.36 | 9.06           | **49.64** |
-
+</div>
 在国内外3B以下代码大模型中，珠算大模型在五个主流代码评测基准上的综合表现达到最佳，各项指标均处于领先水平。其中，在Humaneval和Humaneval+基准上的表现尤为突出；在MBPP(sanitized)和MBPP+基准上的表现略逊于最新发布的Yi-Coder-1.5B-chat；而在LiveCodeBench基准上的表现仅次于Stable-Code-Instruct-3B。
 
 #### 3.2 通用语言能力
@@ -109,13 +110,152 @@
 - C-Eval[23]：全面的中文LLM评估基准，包含了13,948个多项选择题，涵盖了52个不同的学科和四个难度级别。
 - CMMLU[24]：综合性中文评估基准，用于评估语言模型在中文语境下的知识和推理能力，涵盖了从基础学科到高级专业水平的67个主题。
 - GSM8K[25]：高质量小学数学应用题评测基准，需要2到8个步骤来解决，解决方案主要涉及基本算术运算，可用于评价多步数学推理能力。
-
+<div align="center">
+  
 | 模型名称                    | MMLU  | HellaSwag | ARC-e  | BBH   | C-Eval | CMMLU  |
-|-----------------------------|-------|-----------|--------|-------|--------|--------|
+| :-----------------------------: | :-------: |:-----------:|:--------:|:-------:|:--------:|:--------:|
 | Granite-3B-Code-Instruct     | 29.95 | 26.82     | 47.62  | 35.87 | 32.30  | 30.77  |
 | Stable-Code-Instruct-3B      | 29.34 | 32.15     | 34.74  | 21.69 | 28.61  | 29.18  |
 | Yi-Coder-1.5B-Chat           | 33.98 | 28.52     | 40.04  | 34.40 | 31.88  | 31.88  |
 | DeepSeek-Coder-1.3B-Instruct | 26.68 | 25.25     | 27.69  | 7.48  | 25.61  | 26.88  |
 | 珠算                         | **40.18** | **53.23**     | **66.67**  | **36.08** | **36.00**  | **36.84**  |
-## 4. 模型推理
+  
+</div>
+  
+## 4.模型使用
+#### Quick Start
+珠算采用原MiniCPM-2B的prompt模板，格式为：
+```python
+<用户>{input}<AI>{output}
+```
+使用珠算进行推理的示例代码如下：
+- 安装transformers>=4.36.0以及accelerate后，运行以下代码
+```python
+# quickstart.py
 
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_id = "HIT-SCIR/abacus"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+    trust_remote_code=True,
+)
+
+text = "<用户>请你用python写一段快速排序的代码<AI>"
+
+inputs = tokenizer(text, return_tensors="pt").to(0)
+outputs = model.generate(
+    **inputs,
+    temperature=0.8,
+    top_p=0.9,
+    max_new_tokens=2048,
+)
+print(tokenizer.decode(outputs[0], skip_special_tokens=False))
+```
+#### Transformers 模型推理 + 流式生成
+transformers支持为tokenizer添加聊天模板，并支持流式生成。示例代码如下：
+```python
+# example/transformers-stream/stream.py
+
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextStreamer
+
+model_id = "HIT-SCIR/abacus"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+    trust_remote_code=True,
+)
+
+chat = [
+    {"role": "user", "content": "请你用python写一段快速排序的代码"},
+]
+
+inputs = tokenizer.apply_chat_template(
+    chat,
+    tokenize=True,
+    add_generation_prompt=True,
+    return_tensors="pt",
+).to(0)
+
+stream_output = model.generate(
+    inputs,
+    streamer=TextStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True),
+    temperature=0.8,
+    top_p=0.9,
+    max_new_tokens=2048,
+)
+```
+
+
+#### ModelScope 模型推理
+<details>
+  ModelScope的接口与Transformers非常相似，只需将transformers替换为modelscope即可：
+  ```python
+  # example/modelscope-generate/generate.py
+  
+  import torch
+  - from transformers import AutoModelForCausalLM, AutoTokenizer
+  + from modelscope import AutoTokenizer, AutoModelForCausalLM
+  
+  model_id = "HIT-SCIR/abacus"
+  
+  tokenizer = AutoTokenizer.from_pretrained(model_id)
+  model = AutoModelForCausalLM.from_pretrained(
+      model_id,
+      torch_dtype=torch.bfloat16,
+      device_map="auto",
+      trust_remote_code=True,
+  )
+  
+  text = "<用户>请你用python写一段快速排序的代码<AI>"
+  
+  inputs = tokenizer(text, return_tensors="pt").to(0)
+  outputs = model.generate(
+      **inputs,
+      temperature=0.8,
+      top_p=0.9,
+      max_new_tokens=2048,
+  )
+  print(tokenizer.decode(outputs[0], skip_special_tokens=False))
+  ```
+</details>
+
+#### vLLM 推理加速
+<details>
+  珠算支持通过vLLM实现推理加速，示例代码如下：
+  ```python
+  # example/vllm-generate/generate.py
+  
+  from vllm import LLM, SamplingParams
+  
+  llm = LLM(
+      model="HIT-SCIR/abacus",
+      tensor_parallel_size=1,
+      trust_remote_code=True,
+  )
+  
+  sampling_params = SamplingParams(
+      temperature=0.8, top_p=0.95, max_tokens=2048
+  )
+  
+  prompts = [
+      "<用户>请你用python写一段快速排序的代码<AI>",
+  ]
+  
+  outputs = llm.generate(prompts, sampling_params)
+  
+  for output in outputs:
+      prompt = output.prompt
+      generated_text = output.outputs[0].text
+      print(generated_text)
+  ```
+</details>
