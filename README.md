@@ -364,20 +364,20 @@ Ollama创建模型
 ## 6.微调适配平台
 #### 模型微调功能
 <p align="center">
-  <img width="100%" src="./picture/4-1.png">
+  <img width="100%" src="./picture/4-1-2.png">
 </p>
 <p align="center">
-  <img width="100%" src="./picture/4-2.png">
+  <img width="100%" src="./picture/4-2-2.png">
 </p>
 
 #### 模型评估功能
 <p align="center">
-  <img width="100%" src="./picture/4-3.png">
+  <img width="100%" src="./picture/4-3-2.png">
 </p>
 
 #### 模型推理功能
 <p align="center">
-  <img width="100%" src="./picture/4-4.png">
+  <img width="100%" src="./picture/4-4-2.png">
 </p>
 我们的微调适配平台将于测试完毕后发布。
 
