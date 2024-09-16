@@ -49,6 +49,7 @@
 |模型名称|文件大小|下载地址|备注|
 |:---:|:---:|:---:|:---:|
 |Abacus|5GB|[🤗HuggingFace](https://huggingface.co/HIT-SCIR/Abacus)<br>[ModelScope](https://www.modelscope.cn/models/HIT-SCIR/Abacus)|Abacus完整模型|
+|Abacus-gguf|1.7GB(Q4_K_M)<br>2.7GB(Q8_0)|[🤗HuggingFace](https://huggingface.co/HIT-SCIR/Abacus)<br>[ModelScope](https://www.modelscope.cn/models/HIT-SCIR/Abacus-gguf)|珠算GGUF版本，适用于llama.cpp、Ollama等推理框架|
 
 </div>
 
@@ -378,6 +379,7 @@ Ollama创建模型
 <p align="center">
   <img width="100%" src="./picture/4-4.png">
 </p>
+我们的微调适配平台将于测试完毕后发布。
 
 ## 7.VSCode插件
 基于珠算大模型的编程能力，我们面向VSCode平台构建了编程辅助插件。插件可以一键式安装，支持代码生成、代码补全、代码摘要等功能，根据用户已经输入的内容预测后续的代码或注释，有效提高开发效率。
