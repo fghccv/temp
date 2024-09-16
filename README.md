@@ -54,11 +54,7 @@
 
 
 #### Quick Start
-珠算采用原MiniCPM-2B的prompt模板，格式为：
-```python
-<用户>{input}<AI>{output}
-```
-使用ollama进行推理的示例代码如下：
+使用ollama进行推理：
 ```bash
 ollama run HIT-SCIR/Abacus
 ```
@@ -322,14 +318,3 @@ for output in outputs:
 
 珠算支持商用。如果将珠算模型或其衍生品用作商业用途，请您按照如下方式联系许可方，以进行登记并向许可方申请书面授权：联系邮箱：<jngao@ir.hit.edu.cn>。
 
-## 9.珠算大模型
-```latex
-@misc{Abacus,
-    author = {Abacus-Team}.
-    title = {xxx}
-    year = {2024},
-    publisher = {GitHub},
-    journal = {GitHub repository}
-    howpublished = {\url{https://github.com/HIT-SCIR/Abacus}}
-}
-```
