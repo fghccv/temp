@@ -16,13 +16,11 @@
   <a href="" target="_blank" style="margin: 2px;">
     <img alt="Wechat" src="https://img.shields.io/badge/Abacus-Wechat-green?style=flat-square&logo=wechat" style="display: inline-block; vertical-align: middle;"/>
   </a>
-</div>
-
-<div align="center" style="line-height: 1;">
   <a href="https://github.com/deepseek-ai/DeepSeek-V2/blob/main/LICENSE-CODE" style="margin: 2px;">
-    <img alt="Code License" src="https://img.shields.io/badge/License-Apache_2.0-green.svg" style="display: inline-block; vertical-align: middle;"/>
+  <img alt="Code License" src="https://img.shields.io/badge/License-Apache_2.0-green.svg" style="display: inline-block; vertical-align: middle;"/>
   </a>
 </div>
+
 
 ---
 
@@ -92,7 +90,7 @@
 ## 3.模型评价
 #### 代码生成能力
 模型代码生成能力的评估主要基于以下评测基准：
-- HumanEval[2]：由 164 道原创编程题组成的评测基准，通过衡量从文档字符串生成程序的功能正确性，评估语言理解、算法和简单的数学能力。
+- HumanEval：由 164 道原创编程题组成的评测基准，通过衡量从文档字符串生成程序的功能正确性，评估语言理解、算法和简单的数学能力。
 - HumanEval+：HumanEval+将原始HumanEval中164道问题的单元测试的规模增加了80倍，用于严格评估 LLM 生成代码的功能正确性。
 - MBPP(sanitized)：Python编程任务评测基准，经过人工验证后的MBPP子集，删减修改了原始MBPP中描述模糊、错误、不符合正常习惯的问题。
 - MBPP+：精简了原始MBPP中的问题数量，并将单元测试的规模增加35倍，用于严格评估 LLM 生成代码的功能正确性。
