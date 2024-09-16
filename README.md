@@ -169,7 +169,7 @@
 
 ## 5.模型使用
 #### Quick Start
-安装Ollama并启动Ollama service：
+[下载Ollama](https://github.com/ollama/ollama/blob/main/README.md)并启动Ollama service：
 ```bash
 ollama serve
 ```
