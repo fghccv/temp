@@ -58,34 +58,9 @@
 ```python
 <用户>{input}<AI>{output}
 ```
-使用珠算进行推理的示例代码如下：
-- 安装transformers>=4.36.0以及accelerate后，运行以下代码
-```python
-# quickstart.py
-
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-model_id = "HIT-SCIR/abacus"
-
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype=torch.bfloat16,
-    device_map="auto",
-    trust_remote_code=True,
-)
-
-text = "<用户>请你用python写一段快速排序的代码<AI>"
-
-inputs = tokenizer(text, return_tensors="pt").to(0)
-outputs = model.generate(
-    **inputs,
-    temperature=0.8,
-    top_p=0.9,
-    max_new_tokens=2048,
-)
-print(tokenizer.decode(outputs[0], skip_special_tokens=False))
+使用ollama进行推理的示例代码如下：
+```bash
+ollama run HIT-SCIR/Abacus
 ```
 
 ## 3.模型评价
