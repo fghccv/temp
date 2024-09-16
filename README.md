@@ -16,7 +16,7 @@
   <a href="" target="_blank" style="margin: 2px;">
     <img alt="Wechat" src="https://img.shields.io/badge/Abacus-Wechat-green?style=flat-square&logo=wechat" style="display: inline-block; vertical-align: middle;"/>
   </a>
-  <a href="https://github.com/deepseek-ai/DeepSeek-V2/blob/main/LICENSE-CODE" style="margin: 2px;">
+  <a href="" style="margin: 2px;">
   <img alt="Code License" src="https://img.shields.io/badge/License-Apache_2.0-green.svg" style="display: inline-block; vertical-align: middle;"/>
   </a>
 </div>
