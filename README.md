@@ -53,11 +53,6 @@
 </div>
 
 
-#### Quick Start
-使用ollama进行推理：
-```bash
-ollama run HIT-SCIR/Abacus
-```
 
 ## 3.模型评价
 #### 代码生成能力
@@ -173,6 +168,15 @@ ollama run HIT-SCIR/Abacus
 - 微调策略：为充分激发模型预训练阶段习得的能力，微调阶段的数据配比与超参数设置训练尽可能地与预训练退火阶段保持了对齐，以减小两者之间的差距。具体而言，微调数据量约80万条，共训练3个epoch。**学习率（1.6e-4）、数据配比与退火阶段保持一致**。数据来源上，Code数据主要来自一些高质量的开源Code数据，NL数据我们则使用了Infinity-Instruct-7M数据中的Math、Commonsense和Subjective3个类别的数据。
 
 ## 5.模型使用
+#### Quick Start
+安装Ollama并启动Ollama service：
+```bash
+ollama serve
+```
+运行珠算大模型：
+```bash
+ollama run HIT-SCIR/Abacus
+```
 #### Transformers 模型推理 + 流式生成
 
 <details>
