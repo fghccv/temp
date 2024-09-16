@@ -52,6 +52,42 @@
 
 </div>
 
+
+#### Quick Start
+珠算采用原MiniCPM-2B的prompt模板，格式为：
+```python
+<用户>{input}<AI>{output}
+```
+使用珠算进行推理的示例代码如下：
+- 安装transformers>=4.36.0以及accelerate后，运行以下代码
+```python
+# quickstart.py
+
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_id = "HIT-SCIR/abacus"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+    trust_remote_code=True,
+)
+
+text = "<用户>请你用python写一段快速排序的代码<AI>"
+
+inputs = tokenizer(text, return_tensors="pt").to(0)
+outputs = model.generate(
+    **inputs,
+    temperature=0.8,
+    top_p=0.9,
+    max_new_tokens=2048,
+)
+print(tokenizer.decode(outputs[0], skip_special_tokens=False))
+```
+
 ## 3.模型评价
 #### 代码生成能力
 模型代码生成能力的评估主要基于以下评测基准：
@@ -166,40 +202,6 @@
 - 微调策略：为充分激发模型预训练阶段习得的能力，微调阶段的数据配比与超参数设置训练尽可能地与预训练退火阶段保持了对齐，以减小两者之间的差距。具体而言，微调数据量约80万条，共训练3个epoch。**学习率（1.6e-4）、数据配比与退火阶段保持一致**。数据来源上，Code数据主要来自一些高质量的开源Code数据，NL数据我们则使用了Infinity-Instruct-7M数据中的Math、Commonsense和Subjective3个类别的数据。
 
 ## 5.模型使用
-#### Quick Start
-珠算采用原MiniCPM-2B的prompt模板，格式为：
-```python
-<用户>{input}<AI>{output}
-```
-使用珠算进行推理的示例代码如下：
-- 安装transformers>=4.36.0以及accelerate后，运行以下代码
-```python
-# quickstart.py
-
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-model_id = "HIT-SCIR/abacus"
-
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype=torch.bfloat16,
-    device_map="auto",
-    trust_remote_code=True,
-)
-
-text = "<用户>请你用python写一段快速排序的代码<AI>"
-
-inputs = tokenizer(text, return_tensors="pt").to(0)
-outputs = model.generate(
-    **inputs,
-    temperature=0.8,
-    top_p=0.9,
-    max_new_tokens=2048,
-)
-print(tokenizer.decode(outputs[0], skip_special_tokens=False))
-```
 #### Transformers 模型推理 + 流式生成
 
 <details>
