@@ -287,6 +287,79 @@ for output in outputs:
 
 </details>
 
+#### llama.cpp部署
+
+<details>
+  
+GGUF格式旨在快速加载和保存模型，由llama.cpp团队推出，适用于llama.cpp、Ollama等框架。您可以手动将HuggingFace格式的珠算转换到GGUF格式。下面介绍使用llama.cpp转GGUF的方法和部署步骤。
+
+##### Step 1 环境准备
+首先需要下载llama.cpp的源码。
+```bash
+git clone https://github.com/ggerganov/llama.cpp.git
+cd llama.cpp
+```
+然后需要进行编译，推荐使用`cmake`。根据您的硬件平台，编译命令有细微差异：
+```bash
+# cpu
+cmake -B build_cpu
+cmake --build build_cpu --config Release
+
+# cuda
+cmake -B build_cuda -DGGML_CUDA=ON
+cmake --build build_cuda --config Release -j 12
+```
+
+##### Step 2 格式转换（可选）
+以下命令需要在`llama.cpp/`目录下：
+转换为GGUF格式
+```bash
+python convert.py --outfile /path/to/Abacus.gguf /path/to/Abacus
+```
+进行GGUF格式的Q4_K_M量化，以下命令需要在`llama.cpp/build_cpu/bin`或者`llama.cpp/build_cuda/bin`目录下(依赖于编译的平台)：
+```bash
+./llama-quantize /path/to/Abacus.gguf /path/to/Abacus-Q4_K_M.gguf Q4_K_M
+```
+##### Step 3 开始推理
+以下命令需要在`llama.cpp/build_cpu/bin`或者`llama.cpp/build_cuda/bin`目录下(依赖于编译的平台)：
+```bash
+./llama-cli -m /path/to/Abacus.gguf -p "<用户>帮我写一个快速排序代码<AI>" -n 128
+```
+关于`main`的更多参数，可以参考llama.cpp的[官方文档](https://github.com/ggerganov/llama.cpp/blob/master/examples/main/README.md)。
+
+</details>
+
+#### Ollama部署
+<details>
+  
+GGUF格式模型同样可以使用Ollama部署。下面介绍简要步骤。
+##### Step 1 环境准备
+这里使用仓库release的压缩包来免root安装，更多安装方法可以参考Ollama官方的[安装教程](https://github.com/ollama/ollama/blob/main/README.md)。
+```bash
+wget https://github.com/ollama/ollama/releases/download/v0.3.10/ollama-linux-amd64.tgz
+tar -C /path/to/ollama -xzf /path/to/ollama-linux-amd64.tgz
+```
+##### Step 2 导入模型
+```bash
+cd /path/to/ollama/bin
+```
+构建`Modelfile`，指定导入GGUF模型路径，其内容示例如下，更多参数设置可参考[官方文档](https://github.com/ggerganov/llama.cpp/blob/master/examples/main/README.md)。
+```bash
+FROM /path/to/Abacus.gguf
+```
+Ollama创建模型
+```bash
+./ollama create Abacus -f path/to/Modelfile
+```
+##### Step 3 使用模型
+同样在`path/to/ollama/bin`路径下：
+```bash
+./ollama run Abacus
+>>> <用户>帮我写一个快速排序代码<AI>
+```
+
+</details>
+
 ## 6.微调适配平台
 #### 模型微调功能
 <p align="center">
