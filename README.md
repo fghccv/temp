@@ -83,7 +83,7 @@
 
 |模型名称|文件大小|下载地址|备注|
 |:---:|:---:|:---:|:---:|
-|Abacus|5GB|[🤗HuggingFace](https://huggingface.co/HIT-SCIR/Abacus)<br>[ModelScope]()|Abacus完整模型|
+|Abacus|5GB|[🤗HuggingFace](https://huggingface.co/HIT-SCIR/Abacus)<br>[ModelScope](https://www.modelscope.cn/models/HIT-SCIR/Abacus)|Abacus完整模型|
 
 </div>
 
